@@ -2098,10 +2098,12 @@ bool CTFGameRules::IsPVEModeControlled( CBaseEntity *who ) const
 		return who->GetTeamNumber() == TF_TEAM_PVE_INVADERS ? true : false;
 	}
 
-	if ( IsPVEModeActive() )
+#ifdef TF_RAID_MODE
+	if ( IsRaidMode() || IsBossBattleMode() )
 	{
 		return who->GetTeamNumber() == TF_TEAM_RED ? true : false;
 	}
+#endif
 #endif
 
 	return false;
@@ -6194,6 +6196,7 @@ bool CTFGameRules::ApplyOnDamageModifyRules( CTakeDamageInfo &info, CBaseEntity 
 					}
 				}
 			}
+/*
 			else if ( pVictim && pTFAttacker && pTFAttacker->IsPlayerClass( TF_CLASS_SNIPER ) && pWeapon && WeaponID_IsSniperRifle( pWeapon->GetWeaponID() ) )
 			{
 				if ( IsHeadshot( info.GetDamageCustom() ) || pVictim->LastHitGroup() == HITGROUP_HEAD )
@@ -6210,6 +6213,7 @@ bool CTFGameRules::ApplyOnDamageModifyRules( CTakeDamageInfo &info, CBaseEntity 
 					}
 				}
 			}
+*/
 			else
 			{
 				// Allow Attributes to shortcut out if found, no need to check all of them

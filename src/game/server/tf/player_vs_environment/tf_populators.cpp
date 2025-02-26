@@ -182,9 +182,11 @@ void OnBotTeleported( CTFBot* bot )
 		bot->TeleportEffect();
 
 		// invading bots get uber while they leave their spawn so they don't drop their cash where players can't pick it up
+/*
 		float flUberTime = tf_mvm_engineer_teleporter_uber_duration.GetFloat();
 		bot->m_Shared.AddCond( TF_COND_INVULNERABLE, flUberTime );
 		bot->m_Shared.AddCond( TF_COND_INVULNERABLE_WEARINGOFF, flUberTime );
+*/
 	}
 }
 
