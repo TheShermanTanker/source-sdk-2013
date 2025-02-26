@@ -9043,7 +9043,7 @@ void CTFPlayerShared::RadiusCurrencyCollectionCheck( void )
 	if ( m_flRadiusCurrencyCollectionTime > gpGlobals->curtime )
 		return;
 	
-	bool bScout = m_pOuter->GetPlayerClass()->GetClassIndex() == TF_CLASS_SCOUT;
+	bool bScout = m_pOuter->GetPlayerClass()->GetClassIndex() == TF_CLASS_SCOUT || m_pOuter->GetPlayerClass()->GetClassIndex() == TF_CLASS_SPY;
 	const int nRadiusSqr = bScout ? 288 * 288 : 72 * 72;
 	Vector vecPos = m_pOuter->GetAbsOrigin();
 
@@ -13313,17 +13313,19 @@ int CTFPlayerShared::GetSequenceForDeath( CBaseAnimating* pRagdoll, bool bBurnin
 	if ( !pRagdoll )
 		return -1;
 
+/*
 	if ( TFGameRules() && TFGameRules()->IsMannVsMachineMode() )
 	{
 		if ( m_pOuter && ( m_pOuter->GetTeamNumber() == TF_TEAM_PVE_INVADERS ) )
 			return -1;
 	}
+*/
 
 	int iDeathSeq = -1;
-// 	if ( bBurning )
-// 	{
-// 		iDeathSeq = pRagdoll->LookupSequence( "primary_death_burning" );
-// 	}
+	if ( bBurning )
+	{
+		iDeathSeq = pRagdoll->LookupSequence( "primary_death_burning" );
+	}
 
 	switch ( nCustomDeath )
 	{

@@ -6194,6 +6194,7 @@ bool CTFGameRules::ApplyOnDamageModifyRules( CTakeDamageInfo &info, CBaseEntity 
 					}
 				}
 			}
+/*
 			else if ( pVictim && pTFAttacker && pTFAttacker->IsPlayerClass( TF_CLASS_SNIPER ) && pWeapon && WeaponID_IsSniperRifle( pWeapon->GetWeaponID() ) )
 			{
 				if ( IsHeadshot( info.GetDamageCustom() ) || pVictim->LastHitGroup() == HITGROUP_HEAD )
@@ -6210,6 +6211,7 @@ bool CTFGameRules::ApplyOnDamageModifyRules( CTakeDamageInfo &info, CBaseEntity 
 					}
 				}
 			}
+*/
 			else
 			{
 				// Allow Attributes to shortcut out if found, no need to check all of them
