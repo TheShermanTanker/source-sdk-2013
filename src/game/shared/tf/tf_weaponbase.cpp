@@ -4500,7 +4500,18 @@ bool CTFWeaponBase::CanFireCriticalShot( bool bIsHeadshot, CBaseEntity *pTarget 
 #ifdef GAME_DLL
 	CTFPlayer *player = GetTFPlayerOwner();
 
-	if ( TFGameRules()->IsPVEModeControlled( player ) )
+	bool (*special)( CTFPlayer * ) = [](CTFPlayer *who) -> bool
+	{
+#ifdef TF_RAID_MODE
+		if ( TFGameRules()->IsRaidMode() || TFGameRules()->IsBossBattleMode() )
+		{
+			return who->GetTeamNumber() == TF_TEAM_RED;
+		}
+#endif
+		return false;
+	};
+
+	if ( player && ( special( player ) || ( TFGameRules()->IsMannVsMachineMode() && player->GetTeamNumber() == TF_TEAM_PVE_INVADERS && !bIsHeadshot ) ) )
 	{
 		// scenario bots cant crit (unless they always do)
 		CTFBot *bot = ToTFBot( player );
