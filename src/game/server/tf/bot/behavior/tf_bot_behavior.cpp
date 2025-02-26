@@ -187,14 +187,14 @@ ActionResult< CTFBot >	CTFBotMainAction::Update( CTFBot *me, float interval )
 
 		me->m_Shared.AddToSpyCloakMeter( 100.0f, true );
 
-		if ( myArea && myArea->HasAttributeTF( spawnRoomFlag ) )
-		{
+	//  if ( myArea && myArea->HasAttributeTF( spawnRoomFlag ) )
+	//  {
 			// invading bots get uber while they leave their spawn so they don't drop their cash where players can't pick it up
-			me->m_Shared.AddCond( TF_COND_INVULNERABLE, 0.5f );
-			me->m_Shared.AddCond( TF_COND_INVULNERABLE_HIDE_UNLESS_DAMAGED, 0.5f );
-			me->m_Shared.AddCond( TF_COND_INVULNERABLE_WEARINGOFF, 0.5f );
-			me->m_Shared.AddCond( TF_COND_IMMUNE_TO_PUSHBACK, 1.0f );
-		}
+	//  	me->m_Shared.AddCond( TF_COND_INVULNERABLE, 0.5f );
+	//  	me->m_Shared.AddCond( TF_COND_INVULNERABLE_HIDE_UNLESS_DAMAGED, 0.5f );
+	//  	me->m_Shared.AddCond( TF_COND_INVULNERABLE_WEARINGOFF, 0.5f );
+	//  	me->m_Shared.AddCond( TF_COND_IMMUNE_TO_PUSHBACK, 1.0f );
+	//  }
 
 		// watch for bots that have fallen through the ground
 		if ( myArea && myArea->GetZ( me->GetAbsOrigin() ) - me->GetAbsOrigin().z > 100.0f )

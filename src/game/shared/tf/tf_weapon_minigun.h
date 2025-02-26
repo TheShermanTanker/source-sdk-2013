@@ -113,6 +113,8 @@ public:
 	float GetBarrelRotation();
 #endif
 
+	virtual bool CanFireCriticalShot( bool bIsHeadshot = false, CBaseEntity* pTarget = nullptr ) OVERRIDE { return bIsHeadshot || BaseClass::CanFireCriticalShot( bIsHeadshot, pTarget ); }
+
 private:
 	
 	CTFMinigun( const CTFMinigun & ) {}

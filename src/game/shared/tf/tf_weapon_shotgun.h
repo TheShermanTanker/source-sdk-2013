@@ -52,6 +52,8 @@ public:
 	virtual void	PrimaryAttack();
 	virtual void	PlayWeaponShootSound( void );
 
+	virtual bool CanFireCriticalShot( bool bIsHeadshot = false, CBaseEntity *pTarget = nullptr ) OVERRIDE { return bIsHeadshot || BaseClass::CanFireCriticalShot( bIsHeadshot, pTarget ); }
+
 #ifdef GAME_DLL
 	virtual CDmgAccumulator	*GetDmgAccumulator( void ) { return &m_Accumulator; }
 #endif // GAME_DLL
