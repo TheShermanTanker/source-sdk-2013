@@ -51,7 +51,7 @@ extern ConVar tf_nav_in_combat_range;
 #define SENTRYGUN_ADD_SHELLS	40
 #define SENTRYGUN_ADD_ROCKETS	8
 
-#define SENTRY_THINK_DELAY	0.05
+#define SENTRY_THINK_DELAY	0.0F // 0.05
 
 #define	SENTRYGUN_CONTEXT	"SentrygunContext"
 

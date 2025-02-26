@@ -10708,9 +10708,9 @@ int CTFPlayer::OnTakeDamage_Alive( const CTakeDamageInfo &info )
 								}
 							}
 
-// 							// Do an AE when it's a headshot
-// 							JarExplode( entindex(), pTFAttacker, pTFWeapon, pTFWeapon, info.GetDamagePosition(), pTFAttacker->GetTeamNumber(), tf_space_thrust_scout.GetFloat(), TF_COND_URINE, flJarateTime, "peejar_impact", TF_WEAPON_PEEJAR_EXPLODE_SOUND );
-// 							NDebugOverlay::Sphere( info.GetDamagePosition(), tf_space_thrust_scout.GetFloat(), 255, 20, 20, true, 5.f );
+							// Do an AE when it's a headshot
+							JarExplode( entindex(), pTFAttacker, pTFWeapon, pTFWeapon, info.GetDamagePosition(), pTFAttacker->GetTeamNumber(), 100.0f, TF_COND_URINE, flJarateTime, "peejar_impact", TF_WEAPON_PEEJAR_EXPLODE_SOUND );
+//  						NDebugOverlay::Sphere( info.GetDamagePosition(), 100.0f, 255, 20, 20, true, 5.f );
 						}
 					}
 				}
@@ -10910,8 +10910,8 @@ bool CTFPlayer::ShouldGib( const CTakeDamageInfo &info )
 	}
 
 	// normal players/bots don't gib in MvM
-	if ( TFGameRules()->IsMannVsMachineMode() )
-		return false;
+//  if ( TFGameRules()->IsMannVsMachineMode() )
+//  	return false;
 
 	// Suicide explode always gibs.
 	if ( m_bSuicideExplode )
@@ -12202,9 +12202,9 @@ void CTFPlayer::Event_Killed( const CTakeDamageInfo &info )
 					if ( bDropPack )
 					{
 						CTFPlayer* pMoneyMaker = NULL;
-						if ( pPlayerAttacker && pPlayerAttacker->IsPlayerClass( TF_CLASS_SNIPER ) )
+						if ( pPlayerAttacker && !pPlayerAttacker->IsPlayerClass( TF_CLASS_SCOUT ) && !pPlayerAttacker->IsPlayerClass( TF_CLASS_SPY ) )
 						{
-							if ( info.GetDamageCustom() == TF_DMG_CUSTOM_BLEEDING || ( pKillerWeapon && WeaponID_IsSniperRifleOrBow( pKillerWeapon->GetWeaponID() ) ) )
+							if ( info.GetDamageCustom() == TF_DMG_CUSTOM_BLEEDING || pKillerWeapon )
 							{
 								pMoneyMaker = pPlayerAttacker;
 
@@ -15253,12 +15253,12 @@ void CTFPlayer::DeathSound( const CTakeDamageInfo &info )
 		nDeathSoundOffset = IsMiniBoss() ? DEATH_SOUND_GIANT_MVM_FIRST : DEATH_SOUND_MVM_FIRST;
 	}
 	
-	if ( TFGameRules() && TFGameRules()->IsMannVsMachineMode() && 
-		 GetTeamNumber() != TF_TEAM_PVE_INVADERS && !m_bGoingFeignDeath )
-	{
-		EmitSound( "MVM.PlayerDied" );
-		return;
-	}
+//  if ( TFGameRules() && TFGameRules()->IsMannVsMachineMode() && 
+//  	 GetTeamNumber() != TF_TEAM_PVE_INVADERS && !m_bGoingFeignDeath )
+//  {
+//  	EmitSound( "MVM.PlayerDied" );
+//  	return;
+//  }
 
 	if ( m_LastDamageType & DMG_FALL ) // Did we die from falling?
 	{
@@ -15285,21 +15285,21 @@ void CTFPlayer::DeathSound( const CTakeDamageInfo &info )
 	}
 
 	// Play an additional sound when we're in MvM and have a boss death
-	if ( TFGameRules() && TFGameRules()->IsMannVsMachineMode() && IsMiniBoss() )
-	{
-		switch ( GetPlayerClass()->GetClassIndex() )
-		{
-			case TF_CLASS_HEAVYWEAPONS:
-			{
-				EmitSound( "MVM.GiantHeavyExplodes" );
-				break;
-			}
-			default:
-			{
-				EmitSound( "MVM.GiantCommonExplodes" );
-			}
-		}
-	}
+//  if ( TFGameRules() && TFGameRules()->IsMannVsMachineMode() && IsMiniBoss() )
+//  {
+//  	switch ( GetPlayerClass()->GetClassIndex() )
+//  	{
+//  		case TF_CLASS_HEAVYWEAPONS:
+//  		{
+//  			EmitSound( "MVM.GiantHeavyExplodes" );
+//  			break;
+//  		}
+//  		default:
+//  		{
+//  			EmitSound( "MVM.GiantCommonExplodes" );
+//  		}
+//  	}
+//  }
 }
 
 //-----------------------------------------------------------------------------
