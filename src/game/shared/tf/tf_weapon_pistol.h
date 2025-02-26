@@ -50,6 +50,8 @@ public:
 
 	virtual int		GetWeaponID( void ) const			{ return TF_WEAPON_PISTOL; }
 
+	virtual bool CanFireCriticalShot( bool bIsHeadshot = false, CBaseEntity *pTarget = nullptr ) OVERRIDE { return bIsHeadshot || BaseClass::CanFireCriticalShot( bIsHeadshot, pTarget ); }
+
 private:
 	CTFPistol( const CTFPistol & ) {}
 };

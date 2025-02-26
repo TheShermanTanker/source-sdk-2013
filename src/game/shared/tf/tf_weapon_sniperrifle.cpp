@@ -378,8 +378,7 @@ void CTFSniperRifle::ItemPostFrame( void )
 			ApplyChargeSpeedModifications( fSniperRifleChargePerSec );
 			fSniperRifleChargePerSec += SniperRifleChargeRateMod();
 
-			// we don't want sniper charge rate to go too high.
-			fSniperRifleChargePerSec = clamp( fSniperRifleChargePerSec, 0, 2.f * TF_WEAPON_SNIPERRIFLE_CHARGE_PER_SEC );
+			fSniperRifleChargePerSec = fSniperRifleChargePerSec < 0 ? 0 : fSniperRifleChargePerSec;
 
 			m_flChargedDamage = MIN( m_flChargedDamage + gpGlobals->frametime * fSniperRifleChargePerSec, TF_WEAPON_SNIPERRIFLE_DAMAGE_MAX );
 
@@ -906,14 +905,7 @@ float CTFSniperRifle::GetProjectileDamage( void )
 //-----------------------------------------------------------------------------
 int	CTFSniperRifle::GetDamageType( void ) const
 {
-	// Only do hit location damage if we're zoomed
-	CTFPlayer *pPlayer = ToTFPlayer( GetPlayerOwner() );
-	if ( pPlayer && pPlayer->m_Shared.InCond( TF_COND_ZOOMED ) )
-		return BaseClass::GetDamageType();
-
-	int nDamageType = BaseClass::GetDamageType() & ~DMG_USE_HITLOCATIONS;
-
-	return nDamageType;
+	return BaseClass::GetDamageType();
 }
 
 //-----------------------------------------------------------------------------
@@ -1010,9 +1002,9 @@ bool CTFSniperRifle::CanFireCriticalShot( bool bIsHeadshot, CBaseEntity *pTarget
 		return false;
 
 	CTFPlayer *pPlayer = GetTFPlayerOwner();
-	if ( pPlayer && pPlayer->m_Shared.IsCritBoosted() )
+	if ( pPlayer && pPlayer->m_Shared.IsCritBoosted() && !bIsHeadshot )
 	{
-		m_bCurrentShotIsHeadshot = bIsHeadshot;
+//  	m_bCurrentShotIsHeadshot = bIsHeadshot;
 		return true;
 	}
 
@@ -1041,7 +1033,7 @@ bool CTFSniperRifle::CanFireCriticalShot( bool bIsHeadshot, CBaseEntity *pTarget
 		if ( pPlayer )
 		{
 			// no crits if they're not zoomed
-			if ( pPlayer->GetFOV() >= pPlayer->GetDefaultFOV() )
+			if ( !pPlayer->m_Shared.InCond( TF_COND_ZOOMED ) )
 			{
 				return false;
 			}
@@ -1297,7 +1289,7 @@ float CTFSniperRifle::GetProgress( void )
 //-----------------------------------------------------------------------------
 bool CTFSniperRifle::ShouldEjectBrass()
 {
-	if ( GetJarateTimeInternal() > 0.f )
+	if ( GetRifleType() == RIFLE_JARATE || GetRifleType() == RIFLE_MACHINA )
 		return false;
 	else
 		return true;
@@ -1923,8 +1915,7 @@ void CTFSniperRifleClassic::ItemPostFrame( void )
 		ApplyChargeSpeedModifications( fSniperRifleChargePerSec );
 		fSniperRifleChargePerSec += SniperRifleChargeRateMod();
 
-		// we don't want sniper charge rate to go too high.
-		fSniperRifleChargePerSec = clamp( fSniperRifleChargePerSec, 0, 2.f * TF_WEAPON_SNIPERRIFLE_CHARGE_PER_SEC );
+		fSniperRifleChargePerSec = fSniperRifleChargePerSec < 0 ? 0 : fSniperRifleChargePerSec;
 
 		m_flChargedDamage = MIN( m_flChargedDamage + gpGlobals->frametime * fSniperRifleChargePerSec, TF_WEAPON_SNIPERRIFLE_DAMAGE_MAX );
 

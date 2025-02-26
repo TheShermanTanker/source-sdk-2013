@@ -1593,10 +1593,10 @@ void CTFBot::ChangeTeam( int iTeamNum, bool bAutoTeam, bool bSilent, bool bAutoB
 bool CTFBot::ShouldGib( const CTakeDamageInfo &info )
 {
 	// only gib giant/miniboss
-	if ( TFGameRules()->IsMannVsMachineMode() && ( IsMiniBoss() || GetModelScale() > 1.f ) )
-	{
-		return true;
-	}
+//  if ( TFGameRules()->IsMannVsMachineMode() && ( IsMiniBoss() || GetModelScale() > 1.f ) )
+//  {
+//  	return true;
+//  }
 
 	return BaseClass::ShouldGib( info );
 }
