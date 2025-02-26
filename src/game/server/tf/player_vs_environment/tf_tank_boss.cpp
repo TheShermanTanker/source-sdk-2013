@@ -921,6 +921,7 @@ void CTFTankBoss::TankBossThink( void )
 //-----------------------------------------------------------------------------------------------------
 void CTFTankBoss::ModifyDamage( CTakeDamageInfo *info ) const
 {
+/*
 	CTFWeaponBase *pWeapon = dynamic_cast< CTFWeaponBase * >( info->GetWeapon() );
 
 	if ( pWeapon && pWeapon->GetWeaponID() == TF_WEAPON_MINIGUN )
@@ -929,6 +930,7 @@ void CTFTankBoss::ModifyDamage( CTakeDamageInfo *info ) const
 		const float minigunFactor = 0.25f;
 		info->SetDamage( info->GetDamage() * minigunFactor );
 	}
+*/
 }
 
 void CTFTankBoss::UpdateCollisionBounds( void )
