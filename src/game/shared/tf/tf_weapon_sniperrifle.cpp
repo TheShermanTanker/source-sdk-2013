@@ -1003,9 +1003,9 @@ bool CTFSniperRifle::CanFireCriticalShot( bool bIsHeadshot, CBaseEntity *pTarget
 		return false;
 
 	CTFPlayer *pPlayer = GetTFPlayerOwner();
-	if ( pPlayer && pPlayer->m_Shared.IsCritBoosted() && !bIsHeadshot )
+	if ( pPlayer && pPlayer->m_Shared.IsCritBoosted() )
 	{
-//  	m_bCurrentShotIsHeadshot = bIsHeadshot;
+		m_bCurrentShotIsHeadshot = bIsHeadshot;
 		return true;
 	}
 
